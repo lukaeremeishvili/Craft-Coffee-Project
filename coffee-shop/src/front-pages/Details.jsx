@@ -1,8 +1,54 @@
 import React, { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import styled from "styled-components";
 import { fetchData, getIngredientDetails } from "../components/dataFetch";
 import { convertGelToUsd } from "../services/exchange";
-import "./details.css";
+
+const DetailsContainer = styled.div`
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 20px;
+  background-color: #deb887;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-family: "Georgia", serif;
+  color: #4b2e2e;
+`;
+
+const Title = styled.h1`
+  font-size: 2.5em;
+  margin: 20px 0;
+  color: #4b2e2e;
+  border-bottom: 2px solid #8b4513;
+  padding-bottom: 10px;
+`;
+
+const Paragraph = styled.p`
+  font-size: 1.2em;
+  margin-bottom: 10px;
+  color: #4b2e2e;
+
+  strong {
+    color: #8b4513;
+  }
+`;
+
+const Button = styled.button`
+  display: inline-block;
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #8b4513;
+  color: #fff;
+  text-decoration: none;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: #5a2d0c;
+  }
+`;
 
 const Details = () => {
   const { id } = useParams();
@@ -49,30 +95,30 @@ const Details = () => {
   );
 
   return (
-    <div className="details-container">
-      <h1>{product.title}</h1>
-      <p>
+    <DetailsContainer>
+      <Title>{product.title}</Title>
+      <Paragraph>
         <strong>Price:</strong> {convertedPrice || product.totalPrice}
-      </p>
-      <p>
+      </Paragraph>
+      <Paragraph>
         <strong>Description:</strong> {description}
-      </p>
-      <p>
+      </Paragraph>
+      <Paragraph>
         <strong>Strength:</strong> {strength}
-      </p>
-      <p>
+      </Paragraph>
+      <Paragraph>
         <strong>Status:</strong> {product.caffeine}
-      </p>
-      <p>
+      </Paragraph>
+      <Paragraph>
         <strong>Flavor:</strong> {flavor}
-      </p>
-      <p>
+      </Paragraph>
+      <Paragraph>
         <strong>Country:</strong> {product.country}
-      </p>
-      <button onClick={handleConvert} className="convert-button">
+      </Paragraph>
+      <Button onClick={handleConvert}>
         {isUsd ? "Convert to GEL" : "Convert to USD"}
-      </button>
-    </div>
+      </Button>
+    </DetailsContainer>
   );
 };
 
